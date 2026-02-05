@@ -91,10 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const startDate = new Date(form['start-date'].value);
         const totalSpending = form['total-spending'].value;
         const accommodation = form.accommodation.value;
+        const holidayType = form['holiday-type'].value;
         const selectedCities = Array.from(form.cities.selectedOptions).map(opt => opt.value);
         const selectedActivities = Array.from(document.querySelectorAll('input[name="activity"]:checked')).map(cb => cb.value);
 
-        summaryDisplay.innerHTML = `<h2>Trip Summary</h2><p><strong>Total Budget:</strong> $${totalSpending}</p>`;
+        summaryDisplay.innerHTML = `<h2>Trip Summary</h2><p><strong>Total Budget:</strong> $${totalSpending}</p><p><strong>Type of Holiday:</strong> ${holidayType}</p>`;
 
         const daysPerCity = Math.floor(duration / selectedCities.length);
         let remainderDays = duration % selectedCities.length;
