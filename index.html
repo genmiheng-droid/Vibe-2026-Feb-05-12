@@ -4,14 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toto Number Generator</title>
+    <title>Japan Itinerary Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Toto Number Generator</h1>
-        <toto-generator></toto-generator>
+        <div class="header-image"></div>
+        <h1>Japan Itinerary Generator</h1>
+        <form id="itinerary-form">
+            <div class="form-grid">
+                <div>
+                    <label for="country">Country:</label>
+                    <input type="text" id="country" name="country" value="Japan" required>
+                </div>
+                <div>
+                    <label for="duration">Duration (days):</label>
+                    <input type="number" id="duration" name="duration" min="1" required>
+                </div>
+                <div>
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date" name="start-date" required>
+                </div>
+                <div>
+                    <label for="total-spending">Total Spending (USD):</label>
+                    <input type="number" id="total-spending" name="total-spending" min="0" required>
+                </div>
+                 <div>
+                    <label for="accommodation">Accommodation:</label>
+                    <select id="accommodation" name="accommodation">
+                        <option value="Budget">Budget</option>
+                        <option value="4-star">4-star</option>
+                        <option value="5-star">5-star</option>
+                    </select>
+                </div>
+                <div class="city-selection">
+                    <label for="cities">Cities to Visit (select multiple):</label>
+                    <select id="cities" name="cities" multiple required>
+                        <option value="Tokyo">Tokyo</option>
+                        <option value="Kyoto">Kyoto</option>
+                        <option value="Osaka">Osaka</option>
+                        <option value="Fukuoka">Fukuoka</option>
+                        <option value="Nagasaki">Nagasaki</option>
+                        <option value="Sapporo">Sapporo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="activities-section">
+                <label>Activities (Choose up to 4):</label>
+                <div class="activity-grid">
+                    <div><input type="checkbox" id="shopping" name="activity" value="Shopping"><label for="shopping">Shopping</label></div>
+                    <div><input type="checkbox" id="museums" name="activity" value="Museums"><label for="museums">Museums</label></div>
+                    <div><input type="checkbox" id="zoo" name="activity" value="Zoo"><label for="zoo">Zoo</label></div>
+                    <div><input type="checkbox" id="beach" name="activity" value="Beach"><label for="beach">Beach</label></div>
+                    <div><input type="checkbox" id="trekking" name="activity" value="Trekking"><label for="trekking">Trekking</label></div>
+                    <div><input type="checkbox" id="eating" name="activity" value="Eating"><label for="eating">Eating</label></div>
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit">Generate Itinerary</button>
+                <button type="reset" id="reset-button">Reset</button>
+            </div>
+        </form>
     </div>
+    <div id="itinerary-summary"></div>
+    <div id="itinerary-display" class="itinerary-container"></div>
+
     <script src="main.js"></script>
 </body>
 </html>
