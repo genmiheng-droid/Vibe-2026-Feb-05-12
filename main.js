@@ -32,38 +32,55 @@ document.addEventListener('DOMContentLoaded', () => {
             Shopping: [{ name: 'Ginza', description: 'Luxury shopping and art galleries.' }, { name: 'Shibuya', description: 'Trendy fashion and the famous Scramble Crossing.' }],
             Museums: [{ name: 'Tokyo National Museum', description: 'Largest collection of Japanese art.' }, { name: 'Ghibli Museum', description: 'Fantasy world of Studio Ghibli (requires advance tickets).' }],
             Zoo: [{ name: 'Ueno Zoo', description: 'Japan\'s oldest zoo, home to giant pandas.' }],
-            Eating: [{ name: 'Omoide Yokocho', description: 'Nostalgic alleyways with delicious yakitori.' }, { name: 'Tsukiji Outer Market', description: 'Fresh seafood and street food.' }]
+            Eating: [{ name: 'Omoide Yokocho', description: 'Nostalgic alleyways with delicious yakitori.' }, { name: 'Tsukiji Outer Market', description: 'Fresh seafood and street food.' }],
+            Restaurants: [
+                { name: 'Sukiyabashi Jiro', description: 'World-renowned sushi restaurant (reservations are essential).' },
+                { name: 'Ichiran Ramen', description: 'Famous for its customizable tonkotsu ramen.' },
+                { name: 'Afuri', description: 'Known for its light, yuzu-infused ramen broth.'}
+            ]
         },
         Kyoto: {
             Shopping: [{ name: 'Nishiki Market', description: 'A narrow, five-block long shopping street.' }, { name: 'Gekkeikan Okura Sake Museum', description: 'Learn about and taste Japanese sake' }],
             Museums: [{ name: 'Kyoto National Museum', description: 'Focuses on pre-modern Japanese and Asian art.' }],
             Trekking: [{ name: 'Fushimi Inari Shrine', description: 'Hike through thousands of red torii gates.' }, { name: 'Arashiyama Bamboo Grove', description: 'A beautiful and serene bamboo forest.' }],
-            Eating: [{ name: 'Pontocho Alley', description: 'Traditional dining in a narrow, atmospheric alley.' }]
+            Eating: [{ name: 'Pontocho Alley', description: 'Traditional dining in a narrow, atmospheric alley.' }],
+            Restaurants: [
+                { name: 'Kikunoi Roan', description: 'A 2-star Michelin kaiseki restaurant.' },
+                { name: 'Menbaka Fire Ramen', description: 'A spectacular and fiery ramen experience.' },
+                { name: 'Gogyo', description: 'Famous for its burnt miso ramen.'}
+            ]
         },
         Osaka: {
             Shopping: [{ name: 'Shinsaibashi-suji', description: 'The main shopping area in Osaka.' }],
             Zoo: [{ name: 'Tennoji Zoo', description: 'A large zoo in the heart of the city.' }],
-            Eating: [{ name: 'Dotonbori', description: 'Famous for its vibrant nightlife and diverse street food.' }]
+            Eating: [{ name: 'Dotonbori', description: 'Famous for its vibrant nightlife and diverse street food.' }],
+            Restaurants: [
+                { name: 'Kani Doraku', description: 'Famous for its delicious crab dishes.' },
+                { name: 'Mizuno', description: 'A highly-regarded okonomiyaki restaurant.' }
+            ]
         },
         Fukuoka: {
             Beach: [{ name: 'Momochi Seaside Park', description: 'A modern waterfront with a large artificial beach.' }],
-            Eating: [{ name: 'Yatai Stalls', description: 'Open-air food stalls, a famous feature of Fukuoka.' }]
+            Eating: [{ name: 'Yatai Stalls', description: 'Open-air food stalls, a famous feature of Fukuoka.' }],
+            Restaurants: [
+                { name: 'Hakata Issou', description: 'A top spot for authentic Hakata-style ramen.' }
+            ]
         },
         Nagasaki: {
             Museums: [{ name: 'Nagasaki Atomic Bomb Museum', description: 'A powerful and moving museum about the 1945 atomic bombing.' }],
-            Trekking: [{ name: 'Mount Inasa', description: 'Offers stunning panoramic views of the city.' }]
+            Trekking: [{ name: 'Mount Inasa', description: 'Offers stunning panoramic views of the city.' }],
+            Restaurants: [
+                { name: 'Shikairou', description: 'The restaurant where champon, a famous Nagasaki noodle dish, was invented.' }
+            ]
         },
         Sapporo: {
             Shopping: [{ name: 'Tanukikoji Shopping Arcade', description: 'A 1km-long arcade with around 200 shops.' }],
             Trekking: [{ name: 'Moerenuma Park', description: 'A large park designed by Isamu Noguchi.' }],
-            Eating: [{ name: 'Ramen Alley', description: 'A narrow lane lined with shops serving Sapporo\'s famous ramen.' }]
+            Eating: [{ name: 'Ramen Alley', description: 'A narrow lane lined with shops serving Sapporo\'s famous ramen.' }],
+            Restaurants: [
+                { name: 'Daruma', description: 'A popular spot for Jingisukan (Genghis Khan), a grilled mutton dish.' }
+            ]
         }
-    };
-
-    const eveningSuggestions = {
-        '5-star': 'Enjoy a world-class kaiseki dinner at your hotel.',
-        '4-star': 'Dine at a highly-rated local restaurant nearby.',
-        'Budget': 'Explore a local yokocho (food alley) for authentic, affordable eats.'
     };
 
     function generateItinerary() {
@@ -99,12 +116,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     return { name: 'Local Exploration', description: 'Wander around the city and discover its unique charm.' };
                 };
 
+                const getRestaurantSuggestion = (city) => {
+                    const cityDb = cityActivityDatabase[city];
+                    if (cityDb && cityDb.Restaurants && cityDb.Restaurants.length > 0) {
+                        return cityDb.Restaurants[Math.floor(Math.random() * cityDb.Restaurants.length)];
+                    }
+                    return { name: 'a local restaurant', description: 'Enjoy the local flavors.' };
+                };
+
                 const morningActivityType = selectedActivities[i % selectedActivities.length] || 'Exploring';
                 const afternoonActivityType = selectedActivities[(i + 1) % selectedActivities.length] || 'Sightseeing';
 
                 const morningSuggestion = getSuggestion(morningActivityType, city);
                 const afternoonSuggestion = getSuggestion(afternoonActivityType, city);
-                const eveningSuggestion = eveningSuggestions[accommodation];
+                const restaurantSuggestion = getRestaurantSuggestion(city);
 
                 const dayCard = document.createElement('div');
                 dayCard.className = 'day-card';
@@ -118,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dayContent.innerHTML = `
                     <p><strong>Morning:</strong> ${morningSuggestion.name} - <em>${morningSuggestion.description}</em></p>
                     <p><strong>Afternoon:</strong> ${afternoonSuggestion.name} - <em>${afternoonSuggestion.description}</em></p>
-                    <p><strong>Evening:</strong> ${eveningSuggestion}</p>
+                    <p><strong>Evening:</strong> Dine at ${restaurantSuggestion.name} - <em>${restaurantSuggestion.description}</em></p>
                     <p><strong>Accommodation:</strong> 🏨 Stay at your selected ${accommodation} hotel.</p>
                 `;
 
