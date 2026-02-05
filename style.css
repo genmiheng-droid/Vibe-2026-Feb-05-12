@@ -198,3 +198,35 @@ button[type="reset"]:hover {
 .day-content p strong {
   color: #555;
 }
+
+/* Feedback Section */
+.feedback-section {
+    max-width: 800px;
+    margin: 30px auto 0 auto;
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-section h2 {
+    text-align: center;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.feedback-form label {
+    margin-top: 15px;
+}
+
+.feedback-form input[type="email"],
+.feedback-form textarea {
+    margin-bottom: 20px;
+}
+
+.feedback-form button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+}
